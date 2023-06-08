@@ -1,0 +1,38 @@
+pipeline {
+    agent { 
+        node {
+            label 'jenkins_slave'
+            }
+      }
+    stages {
+        stage('Build') {
+            steps {
+                echo "Building.."
+                sh '''
+                pip install -r requirements.txt
+                echo "installed requirements..."
+                
+                '''
+            }
+        }
+        stage('Test') {
+            steps {
+                echo "Testing.."
+                sh '''
+                cd myapp
+                python3 jayapp.py
+                python3 jayapp.py --name=Jwalant
+                echo "doing test stuff.."
+                '''
+            }
+        }
+        stage('Deliver') {
+            steps {
+                echo 'Deliver....'
+                sh '''
+                echo "doing delivery stuff.."
+                '''
+            }
+        }
+    }
+}
